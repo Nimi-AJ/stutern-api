@@ -19,14 +19,16 @@ app.get('/', (req, res) => {
 });
 
 //create
-
+app.post('/users', createUser);
 
 //read
 app.get('/users', getUsers);
 
 //update
+app.patch('/users/:id', updateUser);
 
 //delete
+app.delete('/users/:id', deleteUser);
 app.listen(port, () => {
   console.log(`Server connected at  http://localhost:${port}`);
 });
