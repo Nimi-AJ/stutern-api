@@ -6,12 +6,19 @@ dotenv.config();
 const { Pool } = pkg;
 
 const client = new Pool({
-  user: process.env.DATABASE_USER,
-  host: 'localhost',
-  database: process.env.DATABASE_NAME,
-  password: process.env.DATABASE_PASSWORD,
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+
+client.query('SELECT table_schema, table_name FROM information_schema.tables;', (err, res) => {
+  if(err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+})
+
 
 client.on('connect', () => console.log('Database connected successfully'));
 

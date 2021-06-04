@@ -1,4 +1,4 @@
-import client from '../database/index.js';
+import client from '../database/dindex.js';
 
 export const getUsers = async (req, res) => {
   try {

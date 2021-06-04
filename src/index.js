@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import client from './database/index.js';
-import { getUsers } from './queries/index.js';
+import client from './database/dindex.js';
+import { getUsers, createUser, deleteUser, updateUser } from './queries/qindex.js'
 
 const app = express();
 const port = process.env.PORT || 8000;
