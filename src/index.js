@@ -1,14 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import { getUsers, createUser, deleteUser, updateUser } from './queries/qindex.js';
-import dotenv from 'dotenv';
 
+import dotenv from 'dotenv';
+import useRouter from './routes/userRoutes.js'
 const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 
 
@@ -18,7 +19,7 @@ const db = `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PA
 
 
 mongoose
-.connect(db, {useNewUrlParser: true})
+.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log('connected succesfully'))
 .catch((err) => console.log(err));
 
@@ -28,18 +29,9 @@ app.get('/', (req, res) => {
     message: 'hello world',
   });
 });
+app.use('/users', useRouter);
 
-//create
-app.post('/users', createUser);
 
-//read
-app.get('/users', getUsers);
-
-//update
-app.patch('/users/:id', updateUser);
-
-//delete
-app.delete('/users/:id', deleteUser);
 app.listen(port, () => {
   console.log(`Server connected at  http://localhost:${port}`);
 });
