@@ -1,1 +1,1 @@
-API forked from Ibrahim. Task is to complete developing the CRUD operations for the API endpoints
+API for user login and authentication with fully functional web tokens for access
